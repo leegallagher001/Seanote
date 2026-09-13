@@ -1,0 +1,7 @@
+Hello World
+
+13-09-2026
+
+Welcome to the first entry of my C diary app!
+
+

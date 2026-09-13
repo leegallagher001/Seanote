@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void new_note()
 {
@@ -25,6 +26,7 @@ void new_note()
     printf("Review Entry? (Y/N): ");
     char review_choice;
     scanf("%c", &review_choice);
+    getchar();
 
     if (review_choice == 'Y' || review_choice == 'y')
     {
@@ -32,6 +34,31 @@ void new_note()
         printf("%s\n\n", entry_name);
         printf("%s\n\n", entry_date);
         printf("%s\n\n", entry_content);
+
+        printf("\n\nWould you like to save entry? (Y/N): ");
+        char save_choice;
+        scanf("%c", &save_choice);
+        getchar();
+
+        if (save_choice == 'Y' || save_choice == 'y') {
+            char filename[64];
+
+            entry_name[strcspn(entry_name, "\n")] = '\0';
+            entry_date[strcspn(entry_date, "\n")] = '\0';
+            snprintf(filename, sizeof(filename), "%s_%s.txt", entry_name, entry_date);
+
+            FILE* fptr = fopen(filename, "w");
+
+            fprintf(fptr, "%s\n\n", entry_name);
+            fprintf(fptr, "%s\n\n", entry_date);
+            fprintf(fptr, "%s\n\n", entry_content);
+
+            fclose(fptr);
+
+            printf("\n\nFile Saved Successfully!\n");
+        } else {
+            printf("\n\nEntry Discarded\n");
+        }
     }
     else
     {
